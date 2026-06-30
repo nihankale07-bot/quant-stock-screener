@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <head>
+
+        <meta charset="UTF-8">
+        <title>Stock Screener</title>
+
+        <div style="margin-bottom:20px">
+
+            <label>Maximum P/E Ratio:</label>
+
+            <input type="number" id="maxPE" value="30">
+
+            <label>
+                <n>Minimum Market Cap (Billions):</n>
+            </label>
+
+            <input type="number" id="minMarketCap" placeholder="Min Market Cap (Billions)" value="100">
+
+            <label>
+                <n>Minimum Revenue Growth (%):</n>
+            </label>
+
+            <input type="number" id="minRevenueGrowth" placeholder="Min Revenue Growth (%)" value="0">
+
+            <button onclick="filterStocks()">
+                Filter Stocks
+            </button>
+
+            <input type="text" id="searchTicker" placeholder="Search by Ticker" oninput="filterStocks()">
+
+            <label style="margin-left:20px;">Sort By:</label>
+
+            <select id="sortBy" onchange="filterStocks()">
+                <option value="Score">Score</option>
+                <option value="PE Ratio">P/E Ratio</option>
+                <option value="Market Cap">Market Cap</option>
+                <option value="Revenue Growth">Revenue Growth</option>
+                <option value="Ticker">Ticker</option>
+            </select>
+
+            <select id="sortOrder" onchange="filterStocks()">
+                <option value="desc">Descending</option>
+                <option value="asc">Ascending</option>
+            </select>
+
+        </div>
+        <style>
+            body {
+                background: #f9f6f0;
+                border-radius: 12px;
+                overflow-y: auto;
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+
+            th,
+            td {
+                padding: 12px;
+                border-bottom: 1px solid #334155;
+                text-align: left;
+            }
+
+            tr:hover {
+                background: #808080;
+                transition: .15s;
+                cursor: pointer;
+                transform: scale(1.01);
+            }
+        </style>
+    </head>
+
+<body>
+    <h1>Quant Stock Screener</h1>
+    <p>Screen, rank and analyze stocks using live Yahoo Finance Data</p>
+    <table id="table">
+        <thead>
+            <tr>
+                <th>Ticker</th>
+                <th>P/E Ratio</th>
+                <th>Market Cap</th>
+                <th>Revenue Growth</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <div id="stockDetails" style="
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:#e3eaed;
+padding:25px;
+border-radius:12px;
+width:450px;
+z-index:1000;
+box-shadow:0 0 30px rgba(0,0,0,.4);
+">
+
+        <div style="
+display:flex;
+justify-content:space-between;
+align-items:center;
+">
+
+            <h1 id="stockTitle" style="
+margin-bottom:20px;
+font-size:34px;
+">
+            </h1>
+
+            <button onclick="closeDetails()" style="
+width:40px;
+height:40px;
+border:none;
+border-radius:50%;
+background:#ef4444;
+color:white;
+font-size:24px;
+font-weight:bold;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+transition:.2s;
+">
+                &times;
+            </button>
+
+        </div>
+
+        <p><b>Current Price:</b> <span id="price"></span></p>
+
+        <p><b>P/E Ratio:</b> <span id="pe"></span></p>
+
+        <p><b>Market Cap:</b> <span id="cap"></span></p>
+
+        <p><b>Revenue Growth:</b> <span id="growth"></span></p>
+
+        <p><b>52 Week High:</b> <span id="high"></span></p>
+
+        <p><b>52 Week Low:</b> <span id="low"></span></p>
+
+        <p><b>Sector:</b> <span id="sector"></span></p>
+
+        <p><b>Industry:</b> <span id="industry"></span></p>
+
+        <h2 style="
+text-align:center;
+margin-top:30px;
+color:#22c55e;
+" id="detailsScore">
+        </h2>
+
+    </div>
+    <script src="script.js"></script>
+    <div id="overlay" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.55);
+z-index:999;
+">
+    </div>
+</body>
+
+</html>
