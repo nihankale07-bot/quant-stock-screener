@@ -24,7 +24,7 @@ A Python + JavaScript stock screener that fetches live market data using Yahoo F
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - Python
 - Pandas
